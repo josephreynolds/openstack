@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: database
-# Recipe:: client
+# Cookbook Name:: mysql
+# Recipe:: python-client
 #
 # Copyright 2012, SUSE Linux Products GmbH
 #
@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
-class Chef::Recipe
-  include DatabaseLibrary
+case node[:platform]
+when "suse"
+  package "python-mysql"     # C-extensions MySQL driver
+  package "python-PyMySQL"   # pure-Python MySQL driver
+when "redhat", "centos"
+  package "MySQL-python"
+else
+  package "python-mysqldb"
 end

@@ -61,10 +61,10 @@ when "redhat","centos","scientific","amazon"
  
 when "suse"
  
-  if platform_version.to_f <= 11.2
+  if platform_version.to_f < 11.2
     default[:postgresql][:version] = "8.3"
   else
-    default[:postgresql][:version] = "8.4"
+    default[:postgresql][:version] = "9.1"
   end
  
   set[:postgresql][:dir] = "/var/lib/pgsql/data"
@@ -73,3 +73,5 @@ else
   default[:postgresql][:version] = "8.4"
   set[:postgresql][:dir]         = "/etc/postgresql/#{node[:postgresql][:version]}/main"
 end
+
+default[:postgresql][:tunable][:max_connections] = "1000"

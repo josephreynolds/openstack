@@ -3,9 +3,12 @@
   "description": "Installation for Database",
   "attributes": {
     "database": {
-      "sql_engine": "postgresql",
+      "sql_engine": "mysql",
       "mysql": {
         "datadir": "/var/lib/mysql"
+      },
+      "postgresql": {
+        "max_connections": 1000
       }
     }
   },
