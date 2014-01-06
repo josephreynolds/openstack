@@ -1,4 +1,4 @@
-# Copyright 2012, SUSE Linux Proucts GmbH 
+# Copyright 2013, SUSE Linux Proucts GmbH 
 # 
 # Licensed under the Apache License, Version 2.0 (the "License"); 
 # you may not use this file except in compliance with the License. 
@@ -13,7 +13,7 @@
 # limitations under the License. 
 # 
 
-class DatabaseController < BarclampController
+class BarclampDatabase::BarclampsController < BarclampsController
   def initialize
     @service_object = DatabaseService.new logger
   end

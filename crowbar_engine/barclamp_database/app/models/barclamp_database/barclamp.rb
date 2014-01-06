@@ -1,4 +1,4 @@
-# Copyright 2012, SUSE Linux Proucts GmbH 
+# Copyright 2013, SUSE Linux Proucts GmbH 
 # 
 # Licensed under the Apache License, Version 2.0 (the "License"); 
 # you may not use this file except in compliance with the License. 
@@ -13,7 +13,7 @@
 # limitations under the License. 
 # 
 
-class DatabaseService < ServiceObject
+class BarclampDatabase::Barclamp < Barclamp
 
   def initialize(thelogger)
     @bc_name = "database"
