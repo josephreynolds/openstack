@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-class HeatController < BarclampController
+class BarclampHeat::BarclampsController < BarclampsController
   def initialize
     @service_object = HeatService.new logger
   end
