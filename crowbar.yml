@@ -22,6 +22,13 @@ barclamp:
   display: Database
   description: Resource for accessing Database Servers
   version: 0
+  license: "apache2"
+  copyright: "Dell, Inc 2013"
+  api_version: "v2"
+  api_version_accepts: "v2"
+  allow_multiple_proposals: true
+  os_support:
+    - ubuntu-12.04
   member:
     - openstack
 
@@ -31,6 +38,12 @@ crowbar:
   run_order: 74
   chef_order: 74
   proposal_schema_version: 2
+
+roles:
+  - name: database-server
+    jig: chef-solo
+    requires:
+      - crowbar-installed-node
 
 locale_additions:
   en:
