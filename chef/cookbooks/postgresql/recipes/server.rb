@@ -37,22 +37,25 @@ when "8.4"
 end
 
 # For Crowbar, we need to set the address to bind - default to admin node.
-addr = node['postgresql']['listen_addresses'] || ""
-newaddr = Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, "admin").address
+addr = node.default['postgresql']['listen_addresses'] || ""
+#newaddr = Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, "admin").address
+newaddr = "localhost"
 if addr != newaddr
-  node['postgresql']['listen_addresses'] = newaddr
-  node.save
+  node.default['postgresql']['listen_addresses'] = newaddr
+  node.save unless Chef::Config[:solo]
 end
 # We also need to add the network + mask to give access to other nodes
 # in pg_hba.conf
-netaddr = node['postgresql']['network_address'] || ""
-netmask = node['postgresql']['network_mask'] || ""
-newnetaddr = Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, "admin").subnet
-newnetmask = Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, "admin").netmask
+netaddr = node.default['postgresql']['network_address'] || ""
+netmask = node.default['postgresql']['network_mask'] || ""
+#newnetaddr = Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, "admin").subnet
+#newnetmask = Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, "admin").netmask
+newnetaddr="192.168.124.0"
+newnetmask="255.255.255.0"
 if netaddr != newnetaddr or netmask != newnetmask
-  node['postgresql']['network_address'] = newnetaddr
-  node['postgresql']['network_mask'] = newnetmask
-  node.save
+  node.default['postgresql']['network_address'] = newnetaddr
+  node.default['postgresql']['network_mask'] = newnetmask
+  node.save  unless Chef::Config[:solo]
 end
 
 # Include the right "family" recipe for installing the server
@@ -86,16 +89,16 @@ bash "assign-postgres-password" do
   code <<-EOH
 echo "ALTER ROLE postgres ENCRYPTED PASSWORD '#{node[:postgresql][:password][:postgres]}';" | psql
   EOH
-  not_if do
-    begin
-      require 'rubygems'
-      Gem.clear_paths
-      require 'pg'
-      conn = PGconn.connect(:host => newaddr, :port => 5432, :dbname => "postgres", :user => "postgres", :password =>  node['postgresql']['password']['postgres'])
-    rescue PGError
-      false
-    end
-  end
+#  not_if do
+#    begin
+#     require 'rubygems'
+#      Gem.clear_paths
+#      require 'pg'
+#      conn = PGconn.connect(:host => newaddr, :port => 5432, :dbname => "postgres", :user => "postgres", :password =>  node['postgresql']['password']['postgres'])
+#    rescue PGError
+#      false
+#    end
+#  end
   action :run
 end
 
@@ -106,15 +109,15 @@ bash "assign-db_maker-password" do
 echo "CREATE ROLE db_maker WITH LOGIN CREATEDB CREATEROLE ENCRYPTED PASSWORD '#{node[:database][:db_maker_password]}';
 ALTER ROLE db_maker ENCRYPTED PASSWORD '#{node[:database][:db_maker_password]}';" | psql
   EOH
-  not_if do
-    begin
-      require 'rubygems'
-      Gem.clear_paths
-      require 'pg'
-      conn = PGconn.connect(:host => newaddr, :port => 5432, :dbname => "postgres", :user => "db_maker", :password => node['postgresql']['db_maker_password'])
-    rescue PGError
-      false
-    end
-  end
+#  not_if do
+#    begin
+#      require 'rubygems'
+#      Gem.clear_paths
+#      require 'pg'
+#      conn = PGconn.connect(:host => newaddr, :port => 5432, :dbname => "postgres", :user => "db_maker", :password => node['postgresql']['db_maker_password'])
+#    rescue PGError
+#      false
+#    end
+#  end
   action :run
 end

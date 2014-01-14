@@ -34,7 +34,7 @@ when "redhat","centos","scientific"
     [ "postgresql#{node['postgresql']['version'].split('.').join}-devel" ]
   end
 end
- 
+
 pg_packages.each do |pg_pack|
   package pg_pack do
     action :nothing
@@ -43,6 +43,7 @@ end
 
 if node.platform != "suse"
   gem_package "pg" do
+    version ">0"
     action :nothing
   end.run_action(:install)
 end
