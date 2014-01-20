@@ -11,4 +11,4 @@ A Barclamp is a module component that implements functionality for Crowbar.  Cor
 About this barclamp
 -------------------
 
-This is the RabbitMQ barclamp!
+This is the Messaging barclamp!
