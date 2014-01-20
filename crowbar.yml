@@ -16,8 +16,8 @@
 #
 
 barclamp:
-  name: rabbitmq 
-  display: RabbitMQ
+  name: messaging 
+  display: Messaging
   description: 'AMQP Messaging Middleware: robust enterprise messaging system'
   online_help: 'https://github.com/crowbar/crowbar/wiki'
   version: 0
@@ -34,7 +34,7 @@ crowbar:
 locale_additions:
   en:
     barclamp:
-      rabbitmq:
+      messaging:
         edit_attributes:
           attributes: Attributes
           vhost: Virtual host
@@ -45,10 +45,8 @@ locale_additions:
 
 debs:
   pkgs:
-    # rabbitmq stuff
     - rabbitmq-server
 
 rpms:
   pkgs:
-    # rabbitmq stuff
     - rabbitmq-server

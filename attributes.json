@@ -1,8 +1,8 @@
 {
-  "id": "bc-template-rabbitmq",
-  "description": "Installation for rabbitmq",
+  "id": "bc-template-messaging",
+  "description": "Installation for messaging",
   "attributes": {
-    "rabbitmq": {
+    "messaging": {
       "port": 5672,
       "password": "",
       "user": "nova",
@@ -10,17 +10,17 @@
     }
   },
   "deployment": {
-    "rabbitmq": {
+    "messaging": {
       "crowbar-revision": 0,
       "element_states": {
-        "rabbitmq-server": [ "readying", "ready", "applying" ]
+        "messaging-server": [ "readying", "ready", "applying" ]
       },
       "elements": {},
       "element_order": [
-        [ "rabbitmq-server" ]
+        [ "messaging-server" ]
       ],
       "config": {
-        "environment": "rabbitmq-base-config",
+        "environment": "messaging-base-config",
         "mode": "full",
         "transitions": false,
         "transition_list": [ ]
