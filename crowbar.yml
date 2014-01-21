@@ -1,4 +1,4 @@
-# Copyright 2012, Dell
+# Copyright 2014, Dell
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,33 +20,35 @@ barclamp:
   display: Messaging
   description: 'AMQP Messaging Middleware: robust enterprise messaging system'
   online_help: 'https://github.com/crowbar/crowbar/wiki'
+  copyright: "Dell, Inc 2014"
+  api_version: "v2"
+  api_version_accepts: "v2"
+  os_support:
+    - redhat-6.4
+    - centos-6.4
+    - ubuntu-12.04
   version: 0
+  requires:
+    - openstack
   member:
     - openstack
 
 crowbar:
   layout: 2.0
-  order: 76
-  run_order: 76
-  chef_order: 76
-  proposal_schema_version: 2
 
-locale_additions:
-  en:
-    barclamp:
-      messaging:
-        edit_attributes:
-          attributes: Attributes
-          vhost: Virtual host
-          user: User
-          port: Port
-        edit_deployment:
-          deployment: Deployment
+roles:
+  - name: os-ops-messaging
+    jig: chef-solo
+    requires:
+      - os-base
 
 debs:
   pkgs:
+    - erlang-dev
+    - util-linux
     - rabbitmq-server
 
 rpms:
   pkgs:
+    - erlang
     - rabbitmq-server
