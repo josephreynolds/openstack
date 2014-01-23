@@ -44,13 +44,11 @@ node['mysql']['client']['packages'].each do |name|
   resources("package[#{name}]").run_action(:install)
 end
 
-#Change from Upstream: source from admin gemsite
-if node.platform != "suse"
-  gem_package "mysql" do
-    version ">0"
-    action :nothing
-  end.run_action(:install)
-end
+#Change from Upstream: source from admin gemsite  and install make for ruby native extensions instead of build-essentials
+# that does apt-get update
+package 'make' do
+  action :nothing
+end.run_action(:install)
 
 chef_gem 'mysql' do
   source 'http://192.168.124.10:8091/gemsite/'
