@@ -1,0 +1,13 @@
+{
+    "rabbitmq": {
+      "nodename": "node[:hostname]",
+      "config": null,
+      "logdir": null,
+      "mnesiadir": null
+    },
+    "openstack": {
+        "mq": {
+            "port": 5672
+        }
+    }
+}
