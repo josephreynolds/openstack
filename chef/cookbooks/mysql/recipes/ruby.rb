@@ -46,11 +46,15 @@ end
 
 #Change from Upstream: source from admin gemsite  and install make for ruby native extensions instead of build-essentials
 # that does apt-get update
-package 'make' do
-  action :nothing
-end.run_action(:install)
+if defined? node['mysql']['source']['gemsite'] then
+  package 'make' do
+    action :nothing
+  end.run_action(:install)
 
-chef_gem 'mysql' do
-  source 'http://192.168.124.10:8091/gemsite/'
-  action :nothing
-end.run_action(:install)
+  chef_gem 'mysql' do
+    source  node['mysql']['source']['gemsite']
+    action :nothing
+  end.run_action(:install)
+else
+  chef_gem 'mysql'
+end

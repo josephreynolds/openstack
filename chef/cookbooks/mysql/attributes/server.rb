@@ -170,3 +170,4 @@ default['mysql']['server_root_password'] = 'crowbar'
 default['mysql']['server_repl_password'] = 'crowbar'
 default['mysql']['server_debian_password'] = 'crowbar'
 
+node['mysql']['source']['gemsite'] =  'http://192.168.124.10:8091/gemsite/'
