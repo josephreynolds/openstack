@@ -37,7 +37,7 @@ crowbar:
   layout: 2.0
 
 roles:
-  - name: os-ops-messaging
+  - name: messaging-server
     jig: chef-solo
     requires:
       - os-base
