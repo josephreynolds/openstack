@@ -164,3 +164,4 @@ default['mysql']['security']['secure_file_priv']        = nil
 default['mysql']['security']['skip_show_database']      = nil
 # @see http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_local_infile
 default['mysql']['security']['local_infile']            = nil
+

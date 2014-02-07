@@ -45,9 +45,6 @@ roles:
       - crowbar-installed-node
       - provisioner-server
       - os-base
-    wants-attribs:
-      - name: provisioner-webserver
-        at: "mysql/source/gemsite"
 
 locale_additions:
   en:
