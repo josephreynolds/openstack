@@ -44,20 +44,9 @@ node['mysql']['client']['packages'].each do |name|
   resources("package[#{name}]").run_action(:install)
 end
 
-#Change from Upstream: source from admin gemsite  and install make for ruby native extensions instead of build-essentials
-# that does apt-get update
 
-provisioner_server = ( node[:mysql][:source][:gemsite] rescue nil)
+package 'make' do
+  action :nothing
+end.run_action(:install)
 
-unless provisioner_server.nil? then
-  package 'make' do
-    action :nothing
-  end.run_action(:install)
-
-  chef_gem 'mysql' do
-    source  provisioner_server + '/gemsite/'
-    action :nothing
-  end.run_action(:install)
-else
-  chef_gem 'mysql'
-end
+chef_gem 'mysql'
