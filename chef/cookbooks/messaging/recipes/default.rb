@@ -15,3 +15,4 @@
 
 node.override['rabbitmq']['nodename'] = "rabbit@#{node[:hostname]}"
 node.default['openstack']['mq']['bind_address'] = node.address( "admin", IP::IP4 ).addr
+node.default['openstack']['mq']['user'] = node['crowbar_messaging']['mq']['user']

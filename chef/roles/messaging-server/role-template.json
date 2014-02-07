@@ -4,4 +4,10 @@
             "port": 5672
         }
     }
+
+    "crowbar_messaging": {
+        "mq": {
+            "user": "defaultuserid"
+        }
+    }
 }
