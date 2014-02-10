@@ -14,4 +14,4 @@
 #
 
 node.override['rabbitmq']['nodename'] = "rabbit@#{node[:hostname]}"
-node.force_override['rabbitmq']['address'] = node[:ipaddress]
+node.default['openstack']['mq']['bind_address'] = node.address( "admin", IP::IP4 ).addr
