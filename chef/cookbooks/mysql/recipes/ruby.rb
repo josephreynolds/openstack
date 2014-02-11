@@ -44,9 +44,4 @@ node['mysql']['client']['packages'].each do |name|
   resources("package[#{name}]").run_action(:install)
 end
 
-
-package 'make' do
-  action :nothing
-end.run_action(:install)
-
 chef_gem 'mysql'
