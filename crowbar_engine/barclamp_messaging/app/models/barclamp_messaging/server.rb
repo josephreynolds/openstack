@@ -13,6 +13,7 @@
 # limitations under the License.
 
 class BarclampMessaging::Server < Role
+  include BarclampOpenstack
 
 # Event triggers for node creation and destruction.
   # roles should override if they want to handle node addition
@@ -39,8 +40,31 @@ class BarclampMessaging::Server < Role
   # Event hook that is called whenever a new deployment role is bound to a deployment.
   # Roles that need do something on a per-deployment basis should override this
   def on_deployment_create(dr)
-    Rails.logger.info("on_deployment_create: #{dr}")
-    true
+    DeploymentRole.transaction do
+      Rails.logger.info("on_deployment_create: #{dr}")
+      messaging_user_id = "guest"
+      messaging_password ="guestpassword"
+
+      #setup the encrypted data bag with temporary hardcoded values.
+      Rails.logger.info("Adding encrypted credentials into encrypted data bags")
+      store_credential( "messaging", "user", messaging_user_id, messaging_password)
+
+      d = dr.data
+      d.deep_merge!(
+            {
+              "crowbar_messaging" => 
+                { 
+                  "mq" =>
+                  { 
+                    "user" => messaging_user_id
+                  }
+                }   
+            }
+      )
+      dr.data = d
+      dr.save!
+      Rails.logger.info("Merged user info.#{dr}")
+    end
   end
 
   # Event hook that is called whenever a deployment role is deleted from a deployment.

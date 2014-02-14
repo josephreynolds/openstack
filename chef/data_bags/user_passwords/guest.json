@@ -1,1 +1,0 @@
-{"name":"data_bag_item_user_passwords_guest","json_class":"Chef::DataBagItem","chef_type":"data_bag_item","data_bag":"user_passwords","raw_data":{"id":"guest","guest":{"encrypted_data":"YMvUge2XzkvDoEnYGU0ERXquDsXuRBaIFdKTK7yIYek=\n","iv":"yi1SwNl3x/NdgxXwdKW5JA==\n","version":1,"cipher":"aes-256-cbc"}}}
