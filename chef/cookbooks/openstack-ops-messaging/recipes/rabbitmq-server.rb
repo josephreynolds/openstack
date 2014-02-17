@@ -20,14 +20,14 @@
 # limitations under the License.
 #
 
-class ::Chef::Recipe
+class ::Chef::Recipe # rubocop:disable Documentation
   include ::Openstack
 end
 
 user = node['openstack']['mq']['user']
 pass = get_password 'user', user
 vhost = node['openstack']['mq']['vhost']
-listen_address = address_for_service node['openstack']['mq']
+listen_address = address_for node['openstack']['mq']['bind_interface']
 
 # Used by OpenStack#rabbit_servers/#rabbit_server
 node.set['openstack']['mq']['listen'] = listen_address
