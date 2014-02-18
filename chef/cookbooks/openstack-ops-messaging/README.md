@@ -41,7 +41,6 @@ None
 
 # Attributes #
 
-* `openstack["mq"]["bind_interface"]` - bind to interfaces IPv4 address
 * `openstack["mq"]["cluster"]` - whether or not to cluster rabbit, defaults to 'false'
 
 Testing

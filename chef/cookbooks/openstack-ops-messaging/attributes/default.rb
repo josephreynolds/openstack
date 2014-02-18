@@ -19,5 +19,4 @@
 # limitations under the License.
 #
 
-default['openstack']['mq']['bind_interface'] = 'lo'
 default['openstack']['mq']['cluster'] = false
