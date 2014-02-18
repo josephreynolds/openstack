@@ -14,7 +14,7 @@
 #
 
 node.override['build_essential']['compiletime'] = false
-
+node.override['openstack']['endpoints']['db']['host'] = node.address( "admin", IP::IP4 ).addr
 
 package 'make' do
   action :nothing
