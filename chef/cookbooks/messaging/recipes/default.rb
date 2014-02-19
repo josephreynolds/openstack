@@ -16,3 +16,4 @@
 node.override['rabbitmq']['nodename'] = "rabbit@#{node[:hostname]}"
 node.override['openstack']['endpoints']['mq']['host'] = node.address( "admin", IP::IP4 ).addr
 node.default['openstack']['mq']['user'] = node['crowbar_messaging']['mq']['user']
+node.default['openstack']['secret']['key_path'] = '/var/chef/data_bags/openstack_data_bag_secret'
