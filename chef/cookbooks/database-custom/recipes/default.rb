@@ -15,7 +15,16 @@
 
 node.override['build_essential']['compiletime'] = false
 
-db_bind_address = node.address( "admin", IP::IP4 ).addr
+#setup database address to be used by other Os roles
+v4addr=node.address("admin",IP::IP4)
+v6addr=node.address("admin",IP::IP6)
+node.normal["crowbar"]["database"]["server"]["v4addr"]=v4addr.addr if v4addr
+node.normal["crowbar"]["database"]["server"]["v6addr"]=v6addr.addr if v6addr
+
+Chef::Log.info("Database Server: v4addr #{ node["crowbar"]["database"]["server"]}")
+
+
+db_bind_address = v4addr.addr if v4addr
 node.override['openstack']['endpoints']['db']['host'] = db_bind_address
 node.override['openstack']['db']['compute']['host'] = db_bind_address
 node.override['openstack']['db']['identity']['host'] = db_bind_address
