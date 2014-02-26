@@ -44,7 +44,7 @@ roles:
     requires:
       - crowbar-installed-node
       - provisioner-server
-      - os-base
+      - openstack-base
     attribs:
        - name: database-v4addr
          description: 'The IPv4 address of the database server'
