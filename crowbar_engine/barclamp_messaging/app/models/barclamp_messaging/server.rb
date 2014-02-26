@@ -1,4 +1,4 @@
-# Copyright 2013, Dell
+# Copyright 2014, Dell
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class BarclampMessaging::Server < Role
+class BarclampMessaging::Server < BarclampChef::Role
   include BarclampOpenstack
 
 # Event triggers for node creation and destruction.
