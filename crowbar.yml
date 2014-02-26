@@ -41,7 +41,20 @@ roles:
     jig: chef-solo
     requires:
       - openstack-base
-
+    attribs:
+      - name: 'messaging-openstack_endpoints_mq_host'
+        description: 'Messaging Host'
+        map: 'openstack/endpoints/mq/host'
+      - name: 'messaging-openstack_endpoints_mq_port'
+        description: 'Messaging Port'
+        map: 'openstack/endpoints/mq/port'
+      - name: 'messaging-crowbar_messaging_mq_user'
+        description: 'Messaging User'
+        map: 'crowbar_messaging/mq/user'
+      - name: 'messaging-crowbar_messaging_mq_password'
+        description: 'Messaging Password'
+        map: 'crowbar_messaging/mq/password'
+  
 debs:
   pkgs:
     - erlang-dev

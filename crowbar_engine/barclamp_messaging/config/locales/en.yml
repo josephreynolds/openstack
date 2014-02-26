@@ -22,3 +22,7 @@ en:
         port: Port
       edit_deployment:
         deployment: Deployment
+  barclamp_messaging:
+    node_roles:
+      messaging-server:
+        port: Port

@@ -14,32 +14,31 @@
 
 class BarclampMessaging::Server < BarclampChef::Role
   include BarclampOpenstack
+  
+  # If the user has edited the messaging server node_role when deploment is in proposed state override the credentials 
+  # in the encrypted data bag when it's moved to todo state.
+  def on_todo(node_role, *args)
+    Rails.logger.info "Override for #{self.class.to_s}.on_todo event: #{node_role.role.name} on #{node_role.node.name} "
 
-# Event triggers for node creation and destruction.
-  # roles should override if they want to handle node addition
-  def on_node_create(node)
-    Rails.logger.info("on_node_create: #{node}")
-    true
+    nrd= node_role.data
+    # be paranoid about setting credentials from user data, make sure all requirements are met otherwise except defaults which 
+    # were created in on_deployment_create hook.  TODO perhaps encrypt in the controller and do not persist password attrib?
+    if(!nrd.nil? && nrd != {} && !nrd["crowbar_messaging"]["mq"]["user"].nil? && !nrd["crowbar_messaging"]["mq"]["password"].nil?)
+      messaging_user_id = nrd["crowbar_messaging"]["mq"]["user"]
+      messaging_password = nrd["crowbar_messaging"]["mq"]["password"]
+      #setup the encrypted data bag with temporary hardcoded values.
+      Rails.logger.info("on_todo: Adding encrypted credentials into encrypted data bags")
+      store_credential( "messaging", "user", messaging_user_id, messaging_password)
+    end
   end
 
-  # Event triggers for node creation and destruction.
-  # roles should override if they want to handle node destruction
-  def on_node_delete(node)
-    Rails.logger.info("on_node_delete: #{node}")
-    true
-  end
 
-  # Event hook that will be called every time a node is saved if any attributes changed.
-  # Roles that are interested in watching nodes to see what has changed should
-  # implement this hook.
-  def on_node_change(node)
-    Rails.logger.info("on_node_change: #{node}")
-    true
-  end
 
   # Event hook that is called whenever a new deployment role is bound to a deployment.
   # Roles that need do something on a per-deployment basis should override this
   def on_deployment_create(dr)
+    Rails.logger.info("Override for #{self.class.to_s}.on_deployment_create #{dr}")
+
     DeploymentRole.transaction do
       Rails.logger.info("on_deployment_create: #{dr}")
       messaging_user_id = "guest"
@@ -65,13 +64,5 @@ class BarclampMessaging::Server < BarclampChef::Role
       dr.save!
       Rails.logger.info("Merged user info.#{dr}")
     end
-  end
-
-  # Event hook that is called whenever a deployment role is deleted from a deployment.
-  def on_deployment_delete(dr)
-    Rails.logger.info("on_deployment_delete: #{dr}")
-    true
-  end
-
- 
+  end 
 end
