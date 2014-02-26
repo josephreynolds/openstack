@@ -26,3 +26,11 @@ en:
     node_roles:
       messaging-server:
         port: Port
+        host: Host
+        user: User
+        password: Password
+        host_required: "Host is required and must be more than %{size} characters"
+        port_required: "Port is required and must be between %{size_min} and %{size_max} characters"
+        user_required: "User is required and must be more than %{size} characters"
+        password_required: "Password is required and must be more than %{size} characters"
+        password_invalid: "Password is invalid, no special characters allowed only a-z and 0-9"
