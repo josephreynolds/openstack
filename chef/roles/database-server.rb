@@ -1,9 +1,9 @@
 name "database-server"
 description "Currently MySQL Server (non-ha)"
 run_list(
-    "role[os-base]",
+    "role[openstack-base]",
     "recipe[database-custom]",
-    "recipe[openstack-ops-database::server]",
+    "role[os-ops-database]",
     "recipe[openstack-ops-database::openstack-db]"
 )
 default_attributes()
