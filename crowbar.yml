@@ -45,6 +45,13 @@ roles:
       - crowbar-installed-node
       - provisioner-server
       - os-base
+    attribs:
+       - name: database-v4addr
+         description: 'The IPv4 address of the database server'
+         map: 'crowbar/database/server/v4addr'
+       - name: database-v6addr
+         description: 'The IPv6 address of the database server'
+         map: 'crowbar/database/server/v6addr'
 
 locale_additions:
   en:
