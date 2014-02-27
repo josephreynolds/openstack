@@ -1,0 +1,72 @@
+  
+- data_nil_empty = (data.nil? || data=={})
+- if @node_role.proposed?
+  %dl.attribs
+    %dt= "Host"
+    %dd= text_field_tag 'data_messaging-openstack_endpoints_mq_host', (data_nil_empty || data["openstack"]["endpoints"]["mq"]["host"].nil?) ? template["openstack"]["endpoints"]["mq"]["host"] : data["openstack"]["endpoints"]["mq"]["host"] , :size => 30
+    %dt= "Port"
+    %dd= text_field_tag 'data_messaging-openstack_endpoints_mq_port', (data_nil_empty || data["openstack"]["endpoints"]["mq"]["port"].nil?) ? template["openstack"]["endpoints"]["mq"]["port"] : data["openstack"]["endpoints"]["mq"]["port"], :size => 8 
+    %dt= "Username"
+    %dd= text_field_tag 'data_messaging-crowbar_messaging_mq_user', (data_nil_empty || data["crowbar_messaging"]["mq"]["user"].nil?) ? template["crowbar_messaging"]["mq"]["user"] : data["crowbar_messaging"]["mq"]["user"], :size => 12
+    %dt= "Password"
+    %dd= password_field_tag 'data_messaging-crowbar_messaging_mq_password',(data_nil_empty || data["crowbar_messaging"]["mq"]["password"].nil?) ? template["crowbar_messaging"]["mq"]["password"] : data["crowbar_messaging"]["mq"]["password"], :size => 16
+    -#
+      %dt= "Password Confirm"
+      %dd
+        %input{:type => "password", :name => "password_confirm", :id => "password_confirm", :size => "16"}
+  = hidden_field_tag :dataprefix, "data_"
+  :javascript
+    var rules = new Array();
+    // cannot use regular json syntax because you cannot have hyphen in key names
+    rules["data_messaging-openstack_endpoints_mq_host"] = new Object({
+      required: true,
+      minlength: 8
+    });
+    rules["data_messaging-openstack_endpoints_mq_port"] = new Object({
+      required: true,
+      minlength: 4
+    });
+    rules["data_messaging-crowbar_messaging_mq_user"] = new Object({
+      required: true,
+      minlength: 8
+    });
+    rules["data_messaging-crowbar_messaging_mq_password"] = new Object({
+      required: true,
+      validate_password: true,
+      minlength: 8
+    });
+    //
+    //  rules["password_confirm:"] = new Object({
+    //    required: true,
+    //    equalTo: '#data_messaging-crowbar_messaging_mq_password'
+    //  });
+    var messages = new Array();
+    messages["data_messaging-openstack_endpoints_mq_host"] = new Object({
+      required: "Host is required"
+    });
+    messages["data_messaging-openstack_endpoints_mq_port"] = new Object({
+      required: "Port is required"
+    });
+    messages["data_messaging-crowbar_messaging_mq_user"] = new Object({
+      required: "User is required"
+    });
+    messages["data_messaging-crowbar_messaging_mq_password"] = new Object({
+      required: "Password Required",
+      validate_password: "Passsword invalid!",
+      minlength: "Password must be"
+    });
+    //
+    //  messages["password_confirm:"] = new Object({
+    //    required: "Password confirm required",
+    //    equalTo: "Passwords do not match!"
+    //  });
+- else
+  %dl.attribs
+    %dt= "Host"
+    %dd= (data_nil_empty) ? template["openstack"]["endpoints"]["mq"]["host"] : data["openstack"]["endpoints"]["mq"]["host"]
+    %dt= "Port"
+    %dd= (data_nil_empty) ? template["openstack"]["endpoints"]["mq"]["port"] : data["openstack"]["endpoints"]["mq"]["port"]
+    %dt= "Username"
+    %dd= (data_nil_empty) ? template["crowbar_messaging"]["mq"]["user"] : data["crowbar_messaging"]["mq"]["user"]
+    %dt= "Password"
+    %dd= (data_nil_empty) ? template["crowbar_messaging"]["mq"]["password"] : data["crowbar_messaging"]["mq"]["password"]
