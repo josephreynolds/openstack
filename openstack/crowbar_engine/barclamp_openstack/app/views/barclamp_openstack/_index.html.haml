@@ -1,0 +1,11 @@
+%section.box70#banner
+  %div#instructions
+    = t('.instructions')
+    %br
+    = t('.hint')
+
+:javascript
+  $('#graphic').attr('src','/images/powered-by-openstack.png');
+  $('#banner').attr('visibility','show');
+    
+= render :partial => 'barclamp/index'
