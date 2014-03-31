@@ -1,0 +1,108 @@
+# Copyright 2012, Dell
+# Copyright 2012, SUSE
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Author: RobHirschfeld
+# Author: Ralf Haferkamp <rhafer@suse.com>
+#
+
+barclamp:
+  name: database
+  display: Database
+  description: Resource for accessing Database Servers
+  version: 0
+  license: "apache2"
+  copyright: "Dell, Inc 2013"
+  api_version: "v2"
+  api_version_accepts: "v2"
+  allow_multiple_proposals: true
+  os_support:
+    - ubuntu-12.04
+  member:
+    - openstack                                                                                              
+crowbar:
+  layout: 2.0
+  order: 74
+  run_order: 74
+  chef_order: 74
+  proposal_schema_version: 2
+
+roles:
+  - name: database-server
+    jig: chef-solo
+    requires:
+      - crowbar-installed-node
+      - provisioner-server
+      - openstack-base
+    attribs:
+       - name: database-v4addr
+         description: 'The IPv4 address of the database server'
+         map: 'crowbar/database/server/v4addr'
+       - name: database-v6addr
+         description: 'The IPv6 address of the database server'
+         map: 'crowbar/database/server/v6addr'
+
+locale_additions:
+  en:
+    nav:
+      database: Database
+    barclamp:
+      show_deployment_raw:
+        role: Role
+      database:
+        edit_attributes:
+          sql_engine: SQL Engine
+          attributes: Attributes
+          mysql_attributes: MySQL Options
+          mysql_datadir: Datadir
+          postgresql_attributes: PostgreSQL Options
+          postgresql_max_connections: Global Connection Limit (max_connections)
+        edit_deployment:
+          deployment: Deployment
+debs:
+  build_pkgs:
+    - libpq-dev
+    - postgresql-server-dev-9.1
+    - libmysqlclient-dev
+  pkgs:
+    # postgresql stuff
+    - postgresql
+    - postgresql-client
+    # mysql stuff
+    - libmysqlclient-dev
+    - mysql-client
+    - libmysql-ruby
+    - mysql-server
+    - apparmor-utils
+  src_pkgs:
+    - mysql-5.5
+rpms:
+  build_pkgs:
+    - postgresql-devel
+    - mysql-devel
+  pkgs:
+    # postgresql stuff
+    - postgresql-libs
+    - postgresql
+    - postgresql-server
+    # mysql stuff
+    - mysql-devel
+    - mysql
+    - ruby-mysql
+    - mysql-server
+    - python-psycopg2
+gems:
+  pkgs:
+    - pg
+    - mysql

@@ -1,0 +1,39 @@
+{
+    "crowbar": {
+        "db": {
+            "compute": {
+                "username": "default_username"
+            },
+            "identity": {
+                "username": "default_username"
+            },
+            "image": {
+                "username": "default_username"
+            },
+            "network": {
+                "username": "default_username"
+            },
+            "dashboard": {
+                "username": "default_username"
+            },
+            "metering": {
+                "username": "default_username"
+            },
+            "block-storage": {
+                "username": "default_username"
+            },
+            "orchestration": {
+                "username": "default_username"
+            }
+        },
+        "openstack": {
+            "db": {
+                "root_user_use_databag": true
+            },
+            "mysql":{
+                "server_root_password": "crowbar",
+                "server_repl_password": "crowbar",
+                "server_debian_password": "crowbar"
+            }
+        }
+    }
