@@ -1,0 +1,41 @@
+{
+  "id": "bc-template-tempest",
+  "description": "provides a tempest installation",
+  "attributes": {
+    "tempest": {
+      "tempest_tarball": "http://<ADMINWEB>/files/tempest/havana.tar.gz",
+      "tempest_test_image": "http://<ADMINWEB>/files/tempest/cirros-0.3.0-x86_64-uec.tar.gz",
+      "tempest_adm_password": "tempest",
+      "tempest_adm_username": "tempest",
+      "tempest_user_password": "tempest",
+      "tempest_user_username": "tempest",
+      "tempest_user_tenant": "tempest",
+      "use_virtualenv": true,
+      "use_pfs": false,
+      "nova_instance": "none",
+      "tempest_path": "/opt/tempest"
+    }
+  },
+    "roles": {
+        "tempest": { "jig": "chef" }
+    },
+  "deployment": {
+    "tempest": {
+      "crowbar-revision": 0,
+      "element_states": {
+        "tempest": [ "readying", "ready", "applying" ]
+      },
+      "elements": {},
+      "element_order": [
+        [ "tempest" ]
+      ],
+      "config": {
+        "environment": "tempest-base-config",
+        "mode": "full",
+        "transitions": false,
+        "transition_list": []
+      }
+    }
+  }
+}
+
