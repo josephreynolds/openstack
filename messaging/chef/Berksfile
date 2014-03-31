@@ -1,0 +1,2 @@
+cookbook 'openstack-common', path: '../../openstack/chef-solo/cookbooks/openstack-common'
+cookbook 'openstack-ops-messaging', path: 'cookbooks/openstack-ops-messaging'

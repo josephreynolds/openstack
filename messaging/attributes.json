@@ -1,0 +1,31 @@
+{
+  "id": "bc-template-messaging",
+  "description": "Installation for messaging",
+  "attributes": {
+    "messaging": {
+      "port": 5672,
+      "password": "",
+      "user": "nova",
+      "vhost": "/nova"
+    }
+  },
+  "deployment": {
+    "messaging": {
+      "crowbar-revision": 0,
+      "element_states": {
+        "messaging-server": [ "readying", "ready", "applying" ]
+      },
+      "elements": {},
+      "element_order": [
+        [ "messaging-server" ]
+      ],
+      "config": {
+        "environment": "messaging-base-config",
+        "mode": "full",
+        "transitions": false,
+        "transition_list": [ ]
+      }
+    }
+  }
+}
+
