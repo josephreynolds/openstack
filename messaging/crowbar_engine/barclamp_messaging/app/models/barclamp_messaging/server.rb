@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class BarclampMessaging::Server < BarclampChef::Role
+class BarclampMessaging::Server < BarclampChef::Server
   include BarclampOpenstack
   
   # If the user has edited the messaging server node_role when deploment is in proposed state override the credentials 
