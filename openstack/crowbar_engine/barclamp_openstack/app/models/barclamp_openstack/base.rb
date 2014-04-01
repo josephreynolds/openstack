@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class BarclampOpenstack::Base < BarclampChef::Server
+class BarclampOpenstack::Base < Role
 end
